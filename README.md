@@ -50,7 +50,7 @@ The `ref_vel` is used to control the target speed. At the beginning, it's set to
 
 To avoid collision, the project uses `d` value to detect if any other cars in the simulation are in front of and close to ego. The threshold has been set to 30 meters to ask ego to take action if there is an obstacle. Two actions could be taken.
 
-#### * Lane change
+#### Lane change
 
 First the ego checks all the availabilities to make a safe lane change. The strategy is described as follows.
 
@@ -72,7 +72,7 @@ h. If both left lane and right lane are open, choose the one with faster `up` ve
 
 i. Change lane according to availability. `lane-=1` for left lane and `lane+=1` for right lane.
 
-* Keep lane and slow down
+#### Keep lane and slow down
 
 If above method ended up with no availablity, ego just gradually slows down (`ref_vel -= 0.224`) and keeps current lane, until the left or right lane is open to make change.
 
