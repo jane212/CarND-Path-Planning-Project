@@ -42,32 +42,41 @@ In this project your goal is to safely navigate around a virtual highway with ot
 
 This project is built on the starter code provided by Udacity CarND team.
 
-1. Speed keeping
+### 1. Speed keeping
 
-The `ref_vel` is used to control the target speed. At the beginning, it's set to 5mph to start up a little bit faster than set to 0mph previously. Ultimately the `ref_vel` cannot exceed 49.5mph to obey the speed limit.
+The `ref_vel` is used to control the target speed. At the beginning, it's set to 5 mph to start up a little bit faster than set to 0 mph previously. Ultimately the `ref_vel` cannot exceed 49.5 mph to obey the speed limit.
 
-2. Collision avoidance
+### 2. Collision avoidance
 
-To avoid collision, the project uses `d` value to detect if any other cars in the simulation are in front of and close to ego. The threshold has been set to 30 meters to ask ego to take action if there is an obstacle. Two actions could be made.
+To avoid collision, the project uses `d` value to detect if any other cars in the simulation are in front of and close to ego. The threshold has been set to 30 meters to ask ego to take action if there is an obstacle. Two actions could be taken.
 
-* Lane change
+#### * Lane change
 
-First the ego check all the availabilities to make a safe lane change. The strategy is described as follows.
+First the ego checks all the availabilities to make a safe lane change. The strategy is described as follows.
+
 a. Detect obstacle in front, record its `s` and speed;
-b. Detect vehicles in left lane and driving before ego, search vehicles upto 200m and record the nearest one `left_up` with its `s` and speed;
+
+b. Detect vehicles in left lane and driving before ego, search vehicles upto 200 meters and record the nearest one `left_up` with its `s` and speed;
+
 c. Detect vehicles in left lane and driving behind ego, if any vehicles showed up within 30m range, `left_open` set to `false`;
+
 d. Compare `left_up` with the obstacle in ego's lane, if obstacle is faster, no need to shift to left, `left_open` set to `false`;
-e. Check the `s` value of `left_up`, if it is too close to ego (threshold set to be 30m), not safe to shift to left, `left_open` set to `false`;
+
+e. Check the `s` value of `left_up`, if it is too close to ego (threshold set to be 30 meters), not safe to shift to left, `left_open` set to `false`;
+
 f. If there is no left lane, `left_open` set to `false`;
-g. Repeat `Step b. - f.` for right lane;
+
+g. Repeat `Step b-f` for right lane;
+
 h. If both left lane and right lane are open, choose the one with faster `up` vehicle;
+
 i. Change lane according to availability. `lane-=1` for left lane and `lane+=1` for right lane.
 
 * Keep lane and slow down
 
 If above method ended up with no availablity, ego just gradually slows down (`ref_vel -= 0.224`) and keeps current lane, until the left or right lane is open to make change.
 
-3. Trajectory generation
+### 3. Trajectory generation
 
 This project uses `spline` library to smooth the trajectory with guidiance from Aaron and David in walkthrough video.
 
